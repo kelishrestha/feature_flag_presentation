@@ -8,7 +8,7 @@
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css" id="theme">
+		<link rel="stylesheet" href="dist/theme/sky.css" id="theme">
 
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
@@ -16,8 +16,216 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+        <!-- Slide Start -->
+        <section data-markdown>
+          <script type="text/template">
+            <h2 class="r-fit-text">Feature Management</h2>
+            <h3 class="r-fit-text">Delivering product features with safeguards</h3>
+          </script>
+        </section>
+        <!-- Slide Ends -->
+
+        <!-- Slide Start -->
+        <section data-markdown>
+          ## Introduction
+        </section>
+        <!-- Slide Ends -->
+
+        <!-- Slide Start -->
+        <section>
+          <section data-markdown>## Problems of Statement</section>
+          <section>Multiple services dependent of each other.</section>
+          <section>New feature available only for specific clients.</section>
+          <section>Deployment strategy</section>
+        </section>
+        <!-- Slide Ends -->
+
+        <!-- Slide Start -->
+        <section>How do we manage and deploy features without affecting the existing system?</section>
+        <!-- Slide Ends -->
+
+        <!-- Slide Start -->
+        <section>
+          <section data-markdown>### Feature Flag</section>
+          <section>Feature flag is a decision point in your code that can change the behavior of your application.</section>
+          <section>Also known as feature toggles—have long been used to trigger “hidden” code or behaviors without having to ship new versions of your software.</section>
+          <section data-markdown>
+            <textarea data-template>
+              ```ruby [1-2|3-5]
+              if feature_enabled?('feature_name')
+                # show feature
+              else
+                # hide feature
+              end
+              ```
+            </textarea>
+          </section>
+        </section>
+        <!-- Slide Ends -->
+
+        <!-- Slide Start -->
+        <section>
+          <section data-markdown>### do we need Feature Flag?</section>
+          <section>Enables businesses to dynamically control the availability of application features to end users.</section>
+          <section>Developing major features in partitions with no fear of getting executed, cutting long development cost and high development responsibility within or outside of application.</section>
+          <section>Deploying and testing application empowering features with application control rather than environment control.</section>
+          <section>Easy plug in and play features which are visible to end users and easily configurable by various teams - development and operations engineers to product and marketing managers.</section>
+        </section>
+        <!-- Slide Ends -->
+
+        <section data-markdown>### how to implement feature flag?</section>
+
+        <!-- Slide Start -->
+        <section>
+          <section data-markdown>### Server Side</section>
+          <section data-markdown>
+            <textarea data-template>
+              ```ruby [1-2|4-7|9-14]
+              # Environment variable
+              service_app_token: 'some_api_token'
+
+              # Definition
+              def feature_enabled?
+                ENV['service_app_token'].present?
+              end
+
+              # Method call
+              if feature_enabled?
+                # show feature
+              else
+                # hide feature
+              end
+              ```
+            </textarea>
+          </section>
+          <section data-markdown>
+            <textarea data-template>
+              ```ruby [1-2|4-8|10-15]
+              # Static Files - YAML
+              feature_flag_name: true # true/false
+
+              # Definition
+              def feature_enabled?
+                feature_flags = YAML.load(File.read("feature_flags.yml"))
+                feature_flags['feature_flag_name']
+              end
+
+              # Method call
+              if feature_enabled?
+                # show feature
+              else
+                # hide feature
+              end
+              ```
+            </textarea>
+          </section>
+          <section data-markdown>
+            <textarea data-template>
+              ```ruby [1-4|6-9|11-16]
+              # Database Config
+              # table: feature_flags
+              name: 'feature_flag_name'
+              value: true # true/false
+
+              # Definition
+              def feature_enabled?(feature_name)
+                FeatureFlag.find_by(name: feature_name)&.value
+              end
+
+              # Method call
+              if feature_enabled?
+                # show feature
+              else
+                # hide feature
+              end
+              ```
+            </textarea>
+          </section>
+        </section>
+        <!-- Slide Ends -->
+
+        <!-- Slide Start -->
+        <section>
+          <section data-markdown>### client side</section>
+          <section data-markdown>
+            <textarea data-template>
+              ```ruby [1-2|4-6|8-13|14-18|19-23|25-31|33-39]
+              # Get configs from API
+              ApiRequester.call(http_verb, url, headers, body)
+
+              # Example
+              headers = { 'Content-Type' => 'application/json', 'X-API-TOKEN' => ENV['X-API-TOKEN'] }
+              @feature_flags = ApiRequester.call('get', 'https://api.com/api/v1/app_configs', headers, {})
+
+              # Feature Flag format
+              @feature_flags = [{
+                id: 'primary_key',
+                name: 'feature_flag_1_name',
+                value: true
+              },
+              {
+                id: 'primary_key',
+                name: 'feature_flag_2_name',
+                value: false
+              },
+              {
+                id: 'primary_key',
+                name: 'feature_flag_3_name',
+                value: true
+              }]
+
+              # Definition
+              def feature_enabled?(feature_name)
+                # retrieves true/false value of feature flag
+                flag = @feature_flags.detect{ |flag| flag[:name] == feature_name }
+                # Application needs decide the default value
+                flag.present? ? flag[:value] : false
+              end
+
+              # Method call
+              if feature_enabled?
+                # show feature
+              else
+                # hide feature
+              end
+              ```
+            </textarea>
+          </section>
+        </section>
+        <!-- Slide Ends -->
+
+        <!-- Slide Start -->
+        <section>
+          <section data-markdown>### extended version</section>
+          <section data-markdown>
+            <textarea data-template>
+              ```ruby [1-5|7-11|13-18]
+              # Database Config
+              # table: feature_flags
+              name: 'feature_flag_name'
+              value: true # true/false
+              scopes: ['all_users', 'alpha_users', 'beta_users']
+
+              # Definition
+              def feature_enabled?(feature_name, scopes)
+                flag = FeatureFlag.find_by(name: feature_name)
+                flag.scopes.include?(scopes) && flag.value
+              end
+
+              # Method call
+              if feature_enabled?
+                # show feature
+              else
+                # hide feature
+              end
+              ```
+            </textarea>
+          </section>
+        </section>
+        <!-- Slide Ends -->
+
+        <!-- Slide Start -->
+        <!-- Slide Ends -->
 			</div>
 		</div>
 
@@ -31,9 +239,19 @@
 			// - https://revealjs.com/config/
 			Reveal.initialize({
 				hash: true,
-
 				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ],
+        // Parallax background image
+        parallaxBackgroundImage: 'https://images.unsplash.com/photo-1611605645802-c21be743c321?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=3450&q=80', // e.g. "https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg"
+
+        // Parallax background size
+        parallaxBackgroundSize: '', // CSS syntax, e.g. "2100px 900px" - currently only pixels are supported (don't use % or auto)
+
+        // Number of pixels to move the parallax background per slide
+        // - Calculated automatically unless specified
+        // - Set to 0 to disable movement along an axis
+        parallaxBackgroundHorizontal: 200,
+        parallaxBackgroundVertical: 50
 			});
 		</script>
 	</body>
