@@ -33,10 +33,17 @@
 
         <!-- Slide Start -->
         <section>
-          <section data-markdown>## Problems of Statement</section>
-          <section>Multiple services dependent of each other.</section>
-          <section>New feature available only for specific clients.</section>
-          <section>Deployment strategy</section>
+          <section data-markdown data-separator="---">
+            <textarea data-template>
+              ### Problems of Statement
+              ---
+              Multiple services dependent of each other.
+              ---
+              New feature available only for specific clients.
+              ---
+              Deployment strategy
+            </textarea>
+          </section>
         </section>
         <!-- Slide Ends -->
 
@@ -65,19 +72,25 @@
 
         <!-- Slide Start -->
         <section>
-          <section data-markdown>### do we need Feature Flag?</section>
-          <section>Enables businesses to dynamically control the availability of application features to end users.</section>
-          <section>Developing major features in partitions with no fear of getting executed, cutting long development cost and high development responsibility within or outside of application.</section>
-          <section>Deploying and testing application empowering features with application control rather than environment control.</section>
-          <section>Easy plug in and play features which are visible to end users and easily configurable by various teams - development and operations engineers to product and marketing managers.</section>
+          <section data-markdown data-separator="---">
+            <textarea data-template>
+              ### do we need Feature Flag?
+              ---
+              Enables businesses to dynamically control the availability of application features to end users.
+              ---
+              Developing major features in partitions with no fear of getting executed, cutting long development cost and high development responsibility within or outside of application.
+              ---
+              Deploying and testing application empowering features with application control rather than environment control.
+              ---
+              Easy plug in and play features which are visible to end users and easily configurable by various teams - development and operations engineers to product and marketing managers.
+            </textarea>
+          </section>
         </section>
         <!-- Slide Ends -->
 
-        <section data-markdown>### how to implement feature flag?</section>
-
         <!-- Slide Start -->
         <section>
-          <section data-markdown>### Server Side</section>
+          <section data-markdown>### Server Side Implementation</section>
           <section data-markdown>
             <textarea data-template>
               ```ruby [1-2|4-7|9-14]
@@ -146,7 +159,7 @@
 
         <!-- Slide Start -->
         <section>
-          <section data-markdown>### client side</section>
+          <section data-markdown>### client side Implementation</section>
           <section data-markdown>
             <textarea data-template>
               ```ruby [1-2|4-6|8-13|14-18|19-23|25-31|33-39]
@@ -196,6 +209,9 @@
 
         <!-- Slide Start -->
         <section>
+          <section data-markdown>### Our Previous Attempts</section>
+          <section data-markdown>Environment variables</section>
+          <section data-markdown>Application level configuration</section>
           <section data-markdown>### extended version</section>
           <section data-markdown>
             <textarea data-template>
@@ -225,6 +241,43 @@
         <!-- Slide Ends -->
 
         <!-- Slide Start -->
+        <section>
+          <section data-markdown data-separator="---">
+            <textarea data-template>
+              ### do's and don'ts
+              ---
+              ### Don't
+              Temporary flags which can't be removed quickly.
+              ---
+              ### Don't
+              Stale Flags and dead codes.
+              ---
+              ### Don't
+              No journal on feature flags.
+              ---
+              ### Do
+              Appointing a maintainer for the flag.
+              ---
+              ### Do
+              Set Expiry Dates for flags at the time of creation.
+              ---
+              ### Do
+              Create a branch and PR to remove the flag at the same time when the flag is introduced.
+              ---
+              ### Do
+              Naming Convention for feature flag names and commits for references.
+              ---
+              ### Do
+              Permissions and Role-based Access controls
+              ---
+              ### Do
+              Timely update flags documentation.
+              ---
+              ### Do
+              Organize flags
+            </textarea>
+          </section>
+        </section>
         <!-- Slide Ends -->
 			</div>
 		</div>
