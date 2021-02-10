@@ -12,6 +12,22 @@
 
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="dist/all.min.css">
+
+    <style>
+      .heading-text {
+        text-transform: capitalize !important;
+        letter-spacing: 1px !important;
+      }
+      .letter-spacing {
+        letter-spacing: 1px !important;
+      }
+      .d-none {
+        display: none !important;
+      }
+    </style>
 	</head>
 	<body>
 		<div class="reveal">
@@ -19,270 +35,412 @@
         <!-- Slide Start -->
         <section data-markdown>
           <script type="text/template">
-            <h2 class="r-fit-text">Feature Management</h2>
-            <h3 class="r-fit-text">Delivering product features with safeguards</h3>
+            <h2 class="r-fit-text letter-spacing">Feature Management</h2>
+            <h3 class="r-fit-text heading-text">Delivering product features with safeguards</h3>
+            <div style="padding-top: 30px;">
+              <small>Presented By</small><br>
+              <small>
+                <div style="font-size: 30px;">
+                  Kelina Shrestha
+                </div>
+                <div style="font-size: 20px;margin-top: 10px;">
+                  Ruby on Rails Engineer
+                </div>
+              </small>
+            </div>
           </script>
         </section>
         <!-- Slide Ends -->
 
         <!-- Slide Start -->
-        <section data-markdown>
-          ## Introduction
+        <section>
+          <h2 class="heading-text">Introduction</h2>
+          <p class="d-none">
+            <audio src="./examples/assets/beeping.wav" controls></audio>
+          </p>
         </section>
         <!-- Slide Ends -->
 
         <!-- Slide Start -->
         <section>
-          <section data-markdown data-separator="---">
-            <textarea data-template>
-              ### Problems of Statement
-              ---
-              Multiple services dependent of each other.
-              ---
-              New feature available only for specific clients.
-              ---
-              Deployment strategy
-            </textarea>
+          <section>
+            <h2 class="heading-text">
+              Problem Statement
+            </h2>
+            <ul>
+              <li class="fragment">
+                Multiple services dependent of each other.
+              </li>
+              <li class="fragment">
+                New feature available only for specific clients.
+              </li>
+              <li class="fragment">
+                Deployment strategy
+              </li>
+            </ul>
+            <p class="d-none">
+              <audio src="./examples/assets/beeping.wav" controls></audio>
+            </p>
           </section>
-        </section>
-        <!-- Slide Ends -->
-
-        <!-- Slide Start -->
-        <section>How do we manage and deploy features without affecting the existing system?</section>
-        <!-- Slide Ends -->
-
-        <!-- Slide Start -->
-        <section>
-          <section data-markdown>### Feature Flag</section>
-          <section>Feature flag is a decision point in your code that can change the behavior of your application.</section>
-          <section>Also known as feature toggles—have long been used to trigger “hidden” code or behaviors without having to ship new versions of your software.</section>
-          <section data-markdown>
-            <textarea data-template>
-              ```ruby [1-2|3-5]
-              if feature_enabled?('feature_name')
-                # show feature
-              else
-                # hide feature
-              end
-              ```
-            </textarea>
+          <section>
+            How do we manage and deploy features without affecting the existing system?
+            <p class="d-none">
+              <audio src="./examples/assets/beeping.wav" controls></audio>
+            </p>
           </section>
         </section>
         <!-- Slide Ends -->
 
         <!-- Slide Start -->
         <section>
-          <section data-markdown data-separator="---">
-            <textarea data-template>
-              ### do we need Feature Flag?
-              ---
-              Enables businesses to dynamically control the availability of application features to end users.
-              ---
-              Developing major features in partitions with no fear of getting executed, cutting long development cost and high development responsibility within or outside of application.
-              ---
-              Deploying and testing application empowering features with application control rather than environment control.
-              ---
-              Easy plug in and play features which are visible to end users and easily configurable by various teams - development and operations engineers to product and marketing managers.
-            </textarea>
+          <section>
+            <h2 class="heading-text">Feature Flag</h2>
+            <ul>
+              <li class="fragment">
+                Feature flag is a decision point in your code that can change the behavior of your application.
+              </li>
+              <li class="fragment">
+                Also known as feature toggles—have long been used to trigger “hidden” code or behaviors without having to ship new versions of your software.
+              </li>
+            </ul>
+            <p class="d-none">
+              <audio src="./examples/assets/beeping.wav" controls></audio>
+            </p>
+          </section>
+          <section>
+            <h4 class="heading-text">Example</h4>
+            <span data-markdown>
+              <textarea data-template>
+                ```ruby [1-2|3-5]
+                if feature_enabled?('feature_name')
+                  # show feature
+                else
+                  # hide feature
+                end
+                ```
+              </textarea>
+            </span>
+            <p class="d-none">
+              <audio src="./examples/assets/beeping.wav" controls></audio>
+            </p>
           </section>
         </section>
         <!-- Slide Ends -->
 
         <!-- Slide Start -->
         <section>
-          <section data-markdown>### Server Side Implementation</section>
-          <section data-markdown>
-            <textarea data-template>
-              ```ruby [1-2|4-7|9-14]
-              # Environment variable
-              service_app_token: 'some_api_token'
-
-              # Definition
-              def feature_enabled?
-                ENV['service_app_token'].present?
-              end
-
-              # Method call
-              if feature_enabled?
-                # show feature
-              else
-                # hide feature
-              end
-              ```
-            </textarea>
+          <section>
+            <h2 class="r-fit-text heading-text">do we need Feature Flag?</h2>
+            <p class="d-none">
+              <audio src="./examples/assets/beeping.wav" controls></audio>
+            </p>
           </section>
-          <section data-markdown>
-            <textarea data-template>
-              ```ruby [1-2|4-8|10-15]
-              # Static Files - YAML
-              feature_flag_name: true # true/false
-
-              # Definition
-              def feature_enabled?
-                feature_flags = YAML.load(File.read("feature_flags.yml"))
-                feature_flags['feature_flag_name']
-              end
-
-              # Method call
-              if feature_enabled?
-                # show feature
-              else
-                # hide feature
-              end
-              ```
-            </textarea>
+          <section>
+            <h2 class="r-fit-text heading-text">do we need Feature Flag?</h2>
+            <ul>
+              <li class="fragment">
+                Enables businesses to dynamically control the availability of application features to end users.
+              </li>
+              <li class="fragment">
+                Developing major features in chunks without execution.
+              </li>
+              <li class="fragment">
+                Cutting development cost and high development responsibility within or outside of application.
+              </li>
+            </ul>
+            <p class="d-none">
+              <audio src="./examples/assets/beeping.wav" controls></audio>
+            </p>
           </section>
-          <section data-markdown>
-            <textarea data-template>
-              ```ruby [1-4|6-9|11-16]
-              # Database Config
-              # table: feature_flags
-              name: 'feature_flag_name'
-              value: true # true/false
-
-              # Definition
-              def feature_enabled?(feature_name)
-                FeatureFlag.find_by(name: feature_name)&.value
-              end
-
-              # Method call
-              if feature_enabled?
-                # show feature
-              else
-                # hide feature
-              end
-              ```
-            </textarea>
+          <section>
+            <h2 class="r-fit-text heading-text">do we need Feature Flag?</h2>
+            <ul>
+              <li class="fragment">
+                Deploying and testing application empowering features with application control rather than environment control.
+              </li>
+              <li class="fragment">
+                Easy plug in and play features which are visible to end users and easily configurable by various teams
+                - development and operations engineers to product and marketing managers.
+              </li>
+            </ul>
+            <p class="d-none">
+              <audio src="./examples/assets/beeping.wav" controls></audio>
+            </p>
           </section>
         </section>
         <!-- Slide Ends -->
 
         <!-- Slide Start -->
         <section>
-          <section data-markdown>### client side Implementation</section>
-          <section data-markdown>
-            <textarea data-template>
-              ```ruby [1-2|4-6|8-13|14-18|19-23|25-31|33-39]
-              # Get configs from API
-              ApiRequester.call(http_verb, url, headers, body)
+          <section>
+            <h2 class="r-fit-text heading-text">Server Side Implementation</h2>
+            <p class="d-none">
+              <audio src="./examples/assets/beeping.wav" controls></audio>
+            </p>
+          </section>
+          <section>
+            <h5 class="heading-text">Using Environment Variable</h5>
+            <span data-markdown>
+              <textarea data-template>
+                ```ruby [1-2|4-7|9-14]
+                # Environment variable
+                service_app_token: 'some_api_token'
 
-              # Example
-              headers = { 'Content-Type' => 'application/json', 'X-API-TOKEN' => ENV['X-API-TOKEN'] }
-              @feature_flags = ApiRequester.call('get', 'https://api.com/api/v1/app_configs', headers, {})
+                # Definition
+                def feature_enabled?
+                  ENV['service_app_token'].present?
+                end
 
-              # Feature Flag format
-              @feature_flags = [{
-                id: 'primary_key',
-                name: 'feature_flag_1_name',
-                value: true
-              },
-              {
-                id: 'primary_key',
-                name: 'feature_flag_2_name',
-                value: false
-              },
-              {
-                id: 'primary_key',
-                name: 'feature_flag_3_name',
-                value: true
-              }]
+                # Method call
+                if feature_enabled?
+                  # show feature
+                else
+                  # hide feature
+                end
+                ```
+              </textarea>
+            </span>
+            <p class="d-none">
+              <audio src="./examples/assets/beeping.wav" controls></audio>
+            </p>
+          </section>
+          <section>
+            <h5 class="heading-text">Using YAML/JSON Files</h5>
+            <span data-markdown>
+              <textarea data-template>
+                ```ruby [1-2|4-8|10-15]
+                # Static Files - YAML
+                feature_flag_name: true # true/false
 
-              # Definition
-              def feature_enabled?(feature_name)
-                # retrieves true/false value of feature flag
-                flag = @feature_flags.detect{ |flag| flag[:name] == feature_name }
-                # Application needs decide the default value
-                flag.present? ? flag[:value] : false
-              end
+                # Definition
+                def feature_enabled?
+                  feature_flags = YAML.load(File.read("feature_flags.yml"))
+                  feature_flags['feature_flag_name']
+                end
 
-              # Method call
-              if feature_enabled?
-                # show feature
-              else
-                # hide feature
-              end
-              ```
-            </textarea>
+                # Method call
+                if feature_enabled?
+                  # show feature
+                else
+                  # hide feature
+                end
+                ```
+              </textarea>
+            </span>
+            <p class="d-none">
+              <audio src="./examples/assets/beeping.wav" controls></audio>
+            </p>
+          </section>
+          <section>
+            <h5 class="heading-text">Using Database</h5>
+            <span data-markdown>
+              <textarea data-template>
+                ```ruby [1-4|6-9|11-16]
+                # Database Config
+                # table: feature_flags
+                name: 'feature_flag_name'
+                value: true # true/false
+
+                # Definition
+                def feature_enabled?(feature_name)
+                  FeatureFlag.find_by(name: feature_name)&.value
+                end
+
+                # Method call
+                if feature_enabled?
+                  # show feature
+                else
+                  # hide feature
+                end
+                ```
+              </textarea>
+            </span>
+            <p class="d-none">
+              <audio src="./examples/assets/beeping.wav" controls></audio>
+            </p>
+          </section>
+          <section>
+            <h2 class="r-fit-text heading-text">client side Implementation</h2>
+            <p class="d-none">
+              <audio src="./examples/assets/beeping.wav" controls></audio>
+            </p>
+          </section>
+          <section>
+            <h5 class="heading-text">Client Side</h5>
+            <span data-markdown>
+              <textarea data-template>
+                ```ruby [1-2|4-6|8-13|14-18|19-23|25-31|33-39]
+                # Get configs from API
+                ApiRequester.call(http_verb, url, headers, body)
+
+                # Example
+                headers = { 'Content-Type' => 'application/json', 'X-API-TOKEN' => ENV['X-API-TOKEN'] }
+                @feature_flags = ApiRequester.call('get', 'https://api.com/api/v1/app_configs', headers, {})
+
+                # Feature Flag format
+                @feature_flags = [{
+                  id: 'primary_key',
+                  name: 'feature_flag_1_name',
+                  value: true
+                },
+                {
+                  id: 'primary_key',
+                  name: 'feature_flag_2_name',
+                  value: false
+                },
+                {
+                  id: 'primary_key',
+                  name: 'feature_flag_3_name',
+                  value: true
+                }]
+
+                # Definition
+                def feature_enabled?(feature_name)
+                  # retrieves true/false value of feature flag
+                  flag = @feature_flags.detect{ |flag| flag[:name] == feature_name }
+                  # Application needs decide the default value
+                  flag.present? ? flag[:value] : false
+                end
+
+                # Method call
+                if feature_enabled?
+                  # show feature
+                else
+                  # hide feature
+                end
+                ```
+              </textarea>
+            </span>
+            <p class="d-none">
+              <audio src="./examples/assets/beeping.wav" controls></audio>
+            </p>
           </section>
         </section>
         <!-- Slide Ends -->
 
         <!-- Slide Start -->
         <section>
-          <section data-markdown>### Our Previous Attempts</section>
-          <section data-markdown>Environment variables</section>
-          <section data-markdown>Application level configuration</section>
+          <section>
+            <h2 class="r-fit-text heading-text">Our Previous Attempts</h2>
+            <ul>
+              <li class="fragment">
+                Environment variables
+              </li>
+              <li class="fragment">
+                Application level configuration
+              </li>
+            </ul>
+            <p class="d-none">
+              <audio src="./examples/assets/beeping.wav" controls></audio>
+            </p>
+          </section>
           <section data-markdown>### extended version</section>
-          <section data-markdown>
-            <textarea data-template>
-              ```ruby [1-5|7-11|13-18]
-              # Database Config
-              # table: feature_flags
-              name: 'feature_flag_name'
-              value: true # true/false
-              scopes: ['all_users', 'alpha_users', 'beta_users']
+          <section>
+            <section data-markdown>#### extended version</section>
+            <span data-markdown>
+              <textarea data-template>
+                ```ruby [1-5|7-11|13-18]
+                # Database Config
+                # table: feature_flags
+                name: 'feature_flag_name'
+                value: true # true/false
+                scopes: ['all_users', 'alpha_users', 'beta_users']
 
-              # Definition
-              def feature_enabled?(feature_name, scopes)
-                flag = FeatureFlag.find_by(name: feature_name)
-                flag.scopes.include?(scopes) && flag.value
-              end
+                # Definition
+                def feature_enabled?(feature_name, scopes)
+                  flag = FeatureFlag.find_by(name: feature_name)
+                  flag.scopes.include?(scopes) && flag.value
+                end
 
-              # Method call
-              if feature_enabled?
-                # show feature
-              else
-                # hide feature
-              end
-              ```
-            </textarea>
+                # Method call
+                if feature_enabled?
+                  # show feature
+                else
+                  # hide feature
+                end
+                ```
+              </textarea>
+            </span>
+            <p class="d-none">
+              <audio src="./examples/assets/beeping.wav" controls></audio>
+            </p>
           </section>
         </section>
         <!-- Slide Ends -->
 
         <!-- Slide Start -->
         <section>
-          <section data-markdown data-separator="---">
-            <textarea data-template>
-              ### do's and don'ts
-              ---
-              ### Don't
-              Temporary flags which can't be removed quickly.
-              ---
-              ### Don't
-              Stale Flags and dead codes.
-              ---
-              ### Don't
-              No journal on feature flags.
-              ---
-              ### Do
-              Appointing a maintainer for the flag.
-              ---
-              ### Do
-              Set Expiry Dates for flags at the time of creation.
-              ---
-              ### Do
-              Create a branch and PR to remove the flag at the same time when the flag is introduced.
-              ---
-              ### Do
-              Naming Convention for feature flag names and commits for references.
-              ---
-              ### Do
-              Permissions and Role-based Access controls
-              ---
-              ### Do
-              Timely update flags documentation.
-              ---
-              ### Do
-              Organize flags
-            </textarea>
+          <section>
+            <h2 class="heading-text">do's and don'ts</h2>
           </section>
+          <section>
+            <h2 class="letter-spacing">Don't</h2>
+            <ul>
+              <li class="fragment">
+                Temporary flags which can't be removed quickly.
+              </li>
+              <li class="fragment">
+                Stale Flags and dead codes.
+              </li>
+              <li class="fragment">
+                No journal on feature flags.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2 class="letter-spacing">Do</h2>
+            <ul>
+              <li class="fragment">
+                Appoint a maintainer for the flag.
+              </li>
+              <li class="fragment">
+                Set Expiry Dates for flags at the time of creation.
+              </li>
+              <li class="fragment">
+                Create a branch and PR to remove the flag at the same time when the flag is introduced.
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2 class="letter-spacing">Do</h2>
+            <ul>
+              <li class="fragment">
+                Follow Naming Convention for feature flag names and commits for references.
+              </li>
+              <li class="fragment">
+                Permissions and Role-based Access controls
+              </li>
+              <li class="fragment">
+                Timely update flags documentation.
+              </li>
+              <li class="fragment">
+                Organize flags
+              </li>
+            </ul>
+          </section>
+        </section>
+        <!-- Slide Ends -->
+        <!-- Slide Start -->
+        <section>
+          <p>Ping me if you have questions or concerns ! !</p>
+          <p style="font-size: 16px;">
+            Send me an email @
+            <a href="mailto: kelina@kudoway.com">kelina@kudoway.com</a>
+            <br>
+            <div style="padding-top: 25px;">
+              <br>
+              <a href="https://github.com/kelishrestha"><i class="fab fa-github-square" style="color: #14171A;"></i></a>
+              <a href="https://twitter.com/kelishrestha"><i class="fab fa-twitter-square" style="color: #1DA1F2;"></i></a>
+              <a href="https://medium.com/@kelishrestha97"><i class="fab fa-medium" style="color: #14171A;"></i></a>
+            </div>
+          </p>
         </section>
         <!-- Slide Ends -->
 			</div>
 		</div>
 
 		<script src="dist/reveal.js"></script>
+    <script src="dist/all.min.js"></script>
 		<script src="plugin/notes/notes.js"></script>
 		<script src="plugin/markdown/markdown.js"></script>
 		<script src="plugin/highlight/highlight.js"></script>
@@ -304,7 +462,10 @@
         // - Calculated automatically unless specified
         // - Set to 0 to disable movement along an axis
         parallaxBackgroundHorizontal: 200,
-        parallaxBackgroundVertical: 50
+        parallaxBackgroundVertical: 50,
+        autoAnimateEasing: 'ease-in-out',
+        autoAnimateDuration: 1,
+        autoAnimateUnmatched: false
 			});
 		</script>
 	</body>
