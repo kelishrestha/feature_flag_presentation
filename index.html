@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>Feature Management | Kelina Shrestha</title>
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
@@ -55,8 +55,8 @@
         <!-- Slide Start -->
         <section>
           <h2 class="heading-text">Introduction</h2>
-          <p class="d-none">
-            <audio src="./examples/assets/beeping.wav" controls></audio>
+          <p>
+            <audio src="./assets/FM-Introduction-01.mp3" controls></audio>
           </p>
         </section>
         <!-- Slide Ends -->
@@ -78,14 +78,14 @@
                 Deployment strategy
               </li>
             </ul>
-            <p class="d-none">
-              <audio src="./examples/assets/beeping.wav" controls></audio>
+            <p>
+              <audio src="./assets/FM-Problem-Statement-021.mp3" controls></audio>
             </p>
           </section>
           <section>
             How do we manage and deploy features without affecting the existing system?
-            <p class="d-none">
-              <audio src="./examples/assets/beeping.wav" controls></audio>
+            <p>
+              <audio src="./assets/FM-Problem-Statement-022.mp3" controls></audio>
             </p>
           </section>
         </section>
@@ -103,8 +103,8 @@
                 Also known as feature toggles—have long been used to trigger “hidden” code or behaviors without having to ship new versions of your software.
               </li>
             </ul>
-            <p class="d-none">
-              <audio src="./examples/assets/beeping.wav" controls></audio>
+            <p>
+              <audio src="./assets/FM-Feature-Flag-031.mp3" controls></audio>
             </p>
           </section>
           <section>
@@ -120,8 +120,8 @@
                 ```
               </textarea>
             </span>
-            <p class="d-none">
-              <audio src="./examples/assets/beeping.wav" controls></audio>
+            <p>
+              <audio src="./assets/FM-Feature-Flag-032.mp3" controls></audio>
             </p>
           </section>
         </section>
@@ -131,8 +131,8 @@
         <section>
           <section>
             <h2 class="r-fit-text heading-text">do we need Feature Flag?</h2>
-            <p class="d-none">
-              <audio src="./examples/assets/beeping.wav" controls></audio>
+            <p>
+              <audio src="./assets/FM-Need-Feature-Flag-041.mp3" controls></audio>
             </p>
           </section>
           <section>
@@ -148,8 +148,8 @@
                 Cutting development cost and high development responsibility within or outside of application.
               </li>
             </ul>
-            <p class="d-none">
-              <audio src="./examples/assets/beeping.wav" controls></audio>
+            <p>
+              <audio src="./assets/FM-Need-Feature-Flag-042.mp3" controls></audio>
             </p>
           </section>
           <section>
@@ -163,8 +163,8 @@
                 - development and operations engineers to product and marketing managers.
               </li>
             </ul>
-            <p class="d-none">
-              <audio src="./examples/assets/beeping.wav" controls></audio>
+            <p>
+              <audio src="./assets/FM-Need-Feature-Flag-043.mp3" controls></audio>
             </p>
           </section>
         </section>
@@ -174,8 +174,8 @@
         <section>
           <section>
             <h2 class="r-fit-text heading-text">Server Side Implementation</h2>
-            <p class="d-none">
-              <audio src="./examples/assets/beeping.wav" controls></audio>
+            <p>
+              <audio src="./assets/FM-Server-Side-Implementation-051.mp3" controls></audio>
             </p>
           </section>
           <section>
@@ -200,8 +200,8 @@
                 ```
               </textarea>
             </span>
-            <p class="d-none">
-              <audio src="./examples/assets/beeping.wav" controls></audio>
+            <p>
+              <audio src="./assets/FM-Server-Side-Environment-variables-052.mp3" controls></audio>
             </p>
           </section>
           <section>
@@ -227,8 +227,8 @@
                 ```
               </textarea>
             </span>
-            <p class="d-none">
-              <audio src="./examples/assets/beeping.wav" controls></audio>
+            <p>
+              <audio src="./assets/FM-Server-side-yaml-053.mp3" controls></audio>
             </p>
           </section>
           <section>
@@ -255,14 +255,14 @@
                 ```
               </textarea>
             </span>
-            <p class="d-none">
-              <audio src="./examples/assets/beeping.wav" controls></audio>
+            <p>
+              <audio src="./assets/FM-Server-side-database-054.mp3" controls></audio>
             </p>
           </section>
           <section>
             <h2 class="r-fit-text heading-text">client side Implementation</h2>
-            <p class="d-none">
-              <audio src="./examples/assets/beeping.wav" controls></audio>
+            <p>
+              <audio src="./assets/FM-Client-side-implementation-01.mp3" controls></audio>
             </p>
           </section>
           <section>
@@ -311,8 +311,8 @@
                 ```
               </textarea>
             </span>
-            <p class="d-none">
-              <audio src="./examples/assets/beeping.wav" controls></audio>
+            <p>
+              <audio src="./assets/FM-Client-side-062.mp3" controls></audio>
             </p>
           </section>
         </section>
@@ -330,13 +330,48 @@
                 Application level configuration
               </li>
             </ul>
-            <p class="d-none">
-              <audio src="./examples/assets/beeping.wav" controls></audio>
+            <p>
+              <audio src="./assets/FM-Previous-Attempts-071.mp3" controls></audio>
             </p>
           </section>
-          <section data-markdown>### extended version</section>
           <section>
-            <section data-markdown>#### extended version</section>
+            <h4 class="heading-text">Our Previous Attempts - Example</h4>
+            <span data-markdown>
+              <textarea data-template>
+                ```ruby [4-8|12-16]
+                # poll.rb
+
+                def start!
+                  if FeatureFlagHelper.feature_enabled?('poll_timer')
+                    if disable_start?
+                      return errors.add(:base, 'You cannot start this poll as a count down is already running in the meeting')
+                    end
+                  end
+
+                  update(status: LaunchStatus.to_i)
+
+                  if FeatureFlagHelper.feature_enabled?('poll_timer')
+                    if timer_duration.present?
+                      SessionTimer.new(meeting, params[:type]).update(params)
+                    end
+                  end
+                  true
+                end
+                ```
+              </textarea>
+            </span>
+            <p>
+              <audio src="./assets/FM-Previous-Attempts-072.mp3" controls></audio>
+            </p>
+          </section>
+          <section class="heading-text">
+            extended version
+            <p>
+              <audio src="./assets/FM-Extended-Version-081.mp3" controls></audio>
+            </p>
+          </section>
+          <section>
+            <section class="heading-text">extended version</section>
             <span data-markdown>
               <textarea data-template>
                 ```ruby [1-5|7-11|13-18]
@@ -361,8 +396,8 @@
                 ```
               </textarea>
             </span>
-            <p class="d-none">
-              <audio src="./examples/assets/beeping.wav" controls></audio>
+            <p>
+              <audio src="./assets/FM-Extended-Version-082.mp3" controls></audio>
             </p>
           </section>
         </section>
@@ -372,6 +407,9 @@
         <section>
           <section>
             <h2 class="heading-text">do's and don'ts</h2>
+            <p>
+              <audio src="./assets/FM-Do-and-donts-091.mp3" controls></audio>
+            </p>
           </section>
           <section>
             <h2 class="letter-spacing">Don't</h2>
@@ -386,6 +424,9 @@
                 No journal on feature flags.
               </li>
             </ul>
+            <p>
+              <audio src="./assets/FM-Do-and-dont-092.mp3" controls></audio>
+            </p>
           </section>
           <section>
             <h2 class="letter-spacing">Do</h2>
@@ -400,6 +441,9 @@
                 Create a branch and PR to remove the flag at the same time when the flag is introduced.
               </li>
             </ul>
+            <p>
+              <audio src="./assets/FM-Do-and-dont-093.mp3" controls></audio>
+            </p>
           </section>
           <section>
             <h2 class="letter-spacing">Do</h2>
@@ -417,6 +461,9 @@
                 Organize flags
               </li>
             </ul>
+            <p>
+              <audio src="./assets/FM-Do-and-dont-094.mp3" controls></audio>
+            </p>
           </section>
         </section>
         <!-- Slide Ends -->
@@ -433,6 +480,9 @@
               <a href="https://twitter.com/kelishrestha"><i class="fab fa-twitter-square" style="color: #1DA1F2;"></i></a>
               <a href="https://medium.com/@kelishrestha97"><i class="fab fa-medium" style="color: #14171A;"></i></a>
             </div>
+          </p>
+          <p>
+            <audio src="./assets/FM-Closure-10.mp3" controls></audio>
           </p>
         </section>
         <!-- Slide Ends -->
